@@ -1,3 +1,5 @@
+// C:\Mod\ikkatuMod\src\main\java\com\bulkbreakmod\Config.java
+
 package com.bulkbreakmod;
 
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -16,9 +18,5 @@ public class Config {
         builder.pop();
 
         CONFIG = builder.build();
-    }
-
-    public static void loadConfig() {
-        // ここでコンフィグファイルから設定を読み込む
     }
 }
