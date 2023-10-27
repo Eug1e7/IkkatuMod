@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld_rod",
+  "textures": {
+    "layer0": "bulkbreakmod:item/my_custom_axe"
+  }
+}

@@ -51,18 +51,21 @@ public class ToolBlockMapping {
         toolToBlocks.put(Items.IRON_PICKAXE, pickaxeBlocks);
         toolToBlocks.put(Items.DIAMOND_PICKAXE, pickaxeBlocks);
         toolToBlocks.put(Items.NETHERITE_PICKAXE, pickaxeBlocks);
+        toolToBlocks.put(BulkBreakMod.MY_CUSTOM_PICKAXE.get(), pickaxeBlocks);
 
         toolToBlocks.put(Items.WOODEN_AXE, axeBlocks);
         toolToBlocks.put(Items.STONE_AXE, axeBlocks);
         toolToBlocks.put(Items.IRON_AXE, axeBlocks);
         toolToBlocks.put(Items.DIAMOND_AXE, axeBlocks);
         toolToBlocks.put(Items.NETHERITE_AXE, axeBlocks);
+        toolToBlocks.put(BulkBreakMod.MY_CUSTOM_AXE.get(), axeBlocks);
 
         toolToBlocks.put(Items.WOODEN_SHOVEL, shovelBlocks);
         toolToBlocks.put(Items.STONE_SHOVEL, shovelBlocks);
         toolToBlocks.put(Items.IRON_SHOVEL, shovelBlocks);
         toolToBlocks.put(Items.DIAMOND_SHOVEL, shovelBlocks);
         toolToBlocks.put(Items.NETHERITE_SHOVEL, shovelBlocks);
+        toolToBlocks.put(BulkBreakMod.MY_CUSTOM_SHOVEL.get(), shovelBlocks);
     }
 }
 

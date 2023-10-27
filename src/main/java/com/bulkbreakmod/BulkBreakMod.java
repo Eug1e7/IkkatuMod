@@ -6,7 +6,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -15,22 +17,61 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Mod(BulkBreakMod.MODID)
 public class BulkBreakMod {
+
+    // この行を追加して Logger インスタンスを作成
+    private static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "bulkbreakmod";
+
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+
+    public static final RegistryObject<Item> MY_CUSTOM_PICKAXE = ITEMS.register("my_custom_pickaxe", () ->
+            new MyCustomPickaxe(ItemTier.DIAMOND, 2.0F, -2.8F, new Item.Properties().tab(ItemGroup.TAB_TOOLS))
+    );
+
+    public static final RegistryObject<Item> MY_CUSTOM_AXE = ITEMS.register("my_custom_axe", () ->
+            new MyCustomAxe(ItemTier.DIAMOND, 5.0F, -3.0F, new Item.Properties().tab(ItemGroup.TAB_TOOLS))
+    );
+
+    public static final RegistryObject<Item> MY_CUSTOM_SHOVEL = ITEMS.register("my_custom_shovel", () ->
+            new MyCustomShovel(ItemTier.DIAMOND, 1.5F, -3.0F, new Item.Properties().tab(ItemGroup.TAB_TOOLS))
+    );
+
+    public void checkIfItemIsRegistered() {
+        // こちらの System.out.println() を LOGGER に置き換えます
+        String itemNameToCheck = "my_custom_pickaxe";
+        if (BulkBreakMod.MY_CUSTOM_PICKAXE.isPresent()) {
+            Item item = BulkBreakMod.MY_CUSTOM_PICKAXE.get();
+            // ログ出力の方法を変更
+            LOGGER.info(itemNameToCheck + " は登録されています。");
+        } else {
+            // ログ出力の方法を変更
+            LOGGER.warn(itemNameToCheck + " は登録されていません。");
+        }
+    }
+
 
     public BulkBreakMod() {
         // Mod イベントバスを取得
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        // DeferredRegisterをイベントバスに登録
+        ITEMS.register(modEventBus);
 
         //各種初期化イベント
         modEventBus.addListener(this::setup);
@@ -45,6 +86,7 @@ public class BulkBreakMod {
 
     private void setup(final FMLCommonSetupEvent event) {
         // サーバー・クライアント共通の初期化
+        checkIfItemIsRegistered();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
